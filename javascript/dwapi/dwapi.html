@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <script src="dwapi.js"></script>
+    </head>
+<body>
+
+    <script>
+        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjQsImV4cCI6MTYyMTM1ODgyMCwiaXNzIjoiTGx1RzNnd1pLUHpDIiwiaWF0IjoxNjIxMzIyODIwfQ.yK-BDLOy1pDdHnd4IY68xeYpc8q2uddlmWivsUg8Rn8";
+        const project = "LluG3gwZKPzC";
+        const endpoint = "https://dwapi.dev/item";
+
+        // READ
+        /*
+        let read_parameters = {
+                "endpoint": endpoint,
+                "project": project,
+                "entity": "test",
+                "filter": ["id", "=", "12"],
+            };
+        let read_request = dwapiRead(read_parameters);
+        read_request.then(data => {
+            console.log(data);
+        });
+        */
+
+        // CREATE
+        
+        let values = {"voornaam": "XXX", "achternaam": "YYY"};
+        let create_parameters = {
+                "endpoint": endpoint,
+                "project": project,
+                "entity": "test",
+                "values": values,
+                "token": token
+            };
+        
+        let create_request = dwapiCreate(create_parameters);
+        create_request.then(data => {
+            console.log(data);
+        });
+        
+
+        
+        // UPDATE
+        /*
+        let update_parameters = {
+                "endpoint": endpoint,
+                "project": project,
+                "entity": "test",
+                "filter": ["id", "=", "30"],
+                "values": {"voornaam": "aa", "achternaam": "bb"},
+                "token": token
+            };
+        
+        let update_request = dwapiUpdate(update_parameters);
+        update_request.then(data => {
+            console.log(data);
+        });
+        */
+
+        // DELETE
+        /*
+        let delete_parameters = {
+                "endpoint": endpoint,
+                "project": project,
+                "entity": "test",
+                "filter": [["id", "=", "29"]],
+                "token": token
+            };
+        
+        let delete_request = dwapiDelete(delete_parameters);
+        delete_request.then(data => {
+            console.log(data);
+        });
+        */
+    </script>
+</body>
+</html>
