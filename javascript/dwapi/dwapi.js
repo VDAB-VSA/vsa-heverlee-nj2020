@@ -3,9 +3,15 @@ async function dwapiRead(parameters) {
     let url = parameters.endpoint + 
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity;
-    
-    if (typeof parameters.filter !== "undefined") {
+
+    if (typeof parameters.filter !== "undefined" && parameters.filter.length > 0) {
         url = url + "&filter=" + encodeURIComponent(JSON.stringify(parameters.filter))
+    }
+    if (typeof parameters.sort !== "undefined" && parameters.sort.length > 0) {
+        url = url + "&sort=" + encodeURIComponent(JSON.stringify(parameters.sort))
+    }
+    if (typeof parameters.relation !== "undefined" && parameters.relation.length > 0) {
+        url = url + "&relation=" + encodeURIComponent(JSON.stringify(parameters.relation))
     }
 
     let response = await fetch(url, {
@@ -28,10 +34,9 @@ async function dwapiCreate(parameters) {
     const response = await fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + parameters.token,
-        },
-        body: JSON.stringify(parameters.values)
+        }, 
+        body: prepareBody(parameters.values)
     });
 
     return response.json()
@@ -53,12 +58,12 @@ async function dwapiUpdate(parameters) {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + parameters.token,
         },
-        body: JSON.stringify(parameters.values)
+        body: prepareBody(parameters.values)
         
     });
 
     return response.json()
-        .then(data => {             
+        .then(data => {    
             return data; 
         }); 
 }
@@ -83,4 +88,17 @@ async function dwapiDelete(parameters) {
         .then(data => {             
             return data; 
         }); 
+}
+
+function prepareBody(values) {
+    //return JSON.stringify(values);
+    let data = new FormData();
+    if (values !== "undefined") {
+        for (var key in values) {            
+            if (Object.prototype.hasOwnProperty.call(values, key)) {
+                data.set(key, values[key]);
+            } 
+        }
+    } 
+    return data;
 }
