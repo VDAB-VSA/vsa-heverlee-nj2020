@@ -13,7 +13,7 @@ async function dwapiRead(parameters) {
     if (typeof parameters.relation !== "undefined" && parameters.relation.length > 0) {
         url = url + "&relation=" + encodeURIComponent(JSON.stringify(parameters.relation))
     }
-    if (typeof parameters.paging !== "undefined" && parameters.paging.length > 0) {
+    if (typeof parameters.paging !== "undefined") {
         url = url + "&paging=" + encodeURIComponent(JSON.stringify(parameters.paging))
     }
 

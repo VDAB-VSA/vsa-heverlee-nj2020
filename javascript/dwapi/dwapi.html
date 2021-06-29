@@ -7,15 +7,18 @@
     <script>
         const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjQsImV4cCI6MTYyMTM1ODgyMCwiaXNzIjoiTGx1RzNnd1pLUHpDIiwiaWF0IjoxNjIxMzIyODIwfQ.yK-BDLOy1pDdHnd4IY68xeYpc8q2uddlmWivsUg8Rn8";
         const project = "LluG3gwZKPzC";
-        const endpoint = "https://dwapi.dev/item";
+        const dwapi_url = "https://dwapi.dev";
 
+        // -------------------------------------------------------------------*/
         // READ
         /*
         let read_parameters = {
-                "endpoint": endpoint,
+                "endpoint": dwapi_url + "/item",
                 "project": project,
-                "entity": "test",
-                "filter": ["id", "=", "12"],
+                "entity": "user",
+                "token": token,
+                "paging": {"page": 1, "items_per_page": 5}
+                //"filter": ["id", "=", "12"],
             };
         let read_request = dwapiRead(read_parameters);
         read_request.then(data => {
@@ -23,11 +26,12 @@
         });
         */
 
+        // -------------------------------------------------------------------*/
         // CREATE
-        
+        /*
         let values = {"voornaam": "XXX", "achternaam": "YYY"};
         let create_parameters = {
-                "endpoint": endpoint,
+                "endpoint": dwapi_url + "/item",
                 "project": project,
                 "entity": "test",
                 "values": values,
@@ -38,13 +42,14 @@
         create_request.then(data => {
             console.log(data);
         });
-        
+        */
 
         
+        // -------------------------------------------------------------------*/
         // UPDATE
         /*
         let update_parameters = {
-                "endpoint": endpoint,
+                "endpoint": dwapi_url + "/item",
                 "project": project,
                 "entity": "test",
                 "filter": ["id", "=", "30"],
@@ -58,10 +63,11 @@
         });
         */
 
+        // -------------------------------------------------------------------*/
         // DELETE
         /*
         let delete_parameters = {
-                "endpoint": endpoint,
+                "endpoint": dwapi_url + "/item",
                 "project": project,
                 "entity": "test",
                 "filter": [["id", "=", "29"]],
@@ -70,6 +76,78 @@
         
         let delete_request = dwapiDelete(delete_parameters);
         delete_request.then(data => {
+            console.log(data);
+        });
+        */
+
+
+        // -------------------------------------------------------------------*/
+        // LOGIN
+        /*
+        let email = "bert@data-web.be";
+        let password = "test";
+        let login_parameters = {
+                "endpoint": dwapi_url + "/user/login",
+                "project": project,                
+                "email": email,
+                "password": password
+            };
+        
+        let login_request = dwapiLogin(login_parameters);
+        login_request.then(data => {
+            console.log(data);
+        });
+        */
+
+        // -------------------------------------------------------------------*/
+        // LOGOUT
+        /*
+        let logout_parameters = {
+                "endpoint": dwapi_url + "/user/logout",
+                "project": project,                
+                "token": token
+            };
+        
+        let logout_request = dwapiLogout(logout_parameters);
+        logout_request.then(data => {
+            console.log(data);
+        });
+        */
+
+        // -------------------------------------------------------------------*/
+        // REGISTER
+        /*
+        let values = {
+            "email": "bert@undercast.com",
+            "password": "test",
+            "rol": "admin"
+        }
+        
+        let register_parameters = {
+                "endpoint": dwapi_url + "/user/register",
+                "project": project,                
+                "values": values                
+            }; 
+        
+        
+        let register_request = dwapiRegister(register_parameters);
+        register_request.then(data => {
+            console.log(data);
+        });
+        */
+
+        // -------------------------------------------------------------------*/
+        // RESET PASSWORD
+        /*
+        let reset_parameters = {
+                "endpoint": dwapi_url + "/user/reset_password",
+                "project": project,                
+                "email": "bert@data-web.be"                
+            }; 
+        
+        
+        let reset_request = dwapiResetPassword(reset_parameters);
+        reset_request.then(data => {
             console.log(data);
         });
         */
