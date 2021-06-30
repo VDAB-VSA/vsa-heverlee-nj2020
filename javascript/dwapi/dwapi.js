@@ -1,6 +1,23 @@
+/**
+ * This is a ready to use set of functions for the default dwAPI endpoints:
+ * - GET item: dwapiRead()
+ * - POST item: dwapiCreate()
+ * - PUT item: dwapiUpdate()
+ * - DELETE item: dwapiDelete()
+ * - POST user/login: dwapiLogin()
+ * - POST user/register: dwapiRegister()
+ * - GET user/logout: dwapiLogout()
+ * - GET user/reset_password: dwapiResetPassword()
+ * 
+ * For more documentation check https://dataweb.stoplight.io/studio/dwapi
+ * 
+ * Last updated on 29/06/2021, 19:55
+ * (c) Bert Jansen - 2021
+ */
+
 // READ
 async function dwapiRead(parameters) {   
-    let url = parameters.endpoint + 
+    let url = parameters.endpoint +
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity;
 
@@ -17,8 +34,16 @@ async function dwapiRead(parameters) {
         url = url + "&paging=" + encodeURIComponent(JSON.stringify(parameters.paging))
     }
 
+    let headers = {
+        'Content-Type': 'application/json'
+    }
+    if (typeof parameters.token != "undefined") {
+        headers.Authorization = 'Bearer ' + parameters.token
+    }
+
     let response = await fetch(url, {
-        method: 'GET'
+        method: 'GET',
+        headers: headers
     });
 
     return response.json()
@@ -30,7 +55,7 @@ async function dwapiRead(parameters) {
 
 // CREATE
 async function dwapiCreate(parameters) {   
-    let url = parameters.endpoint + 
+    let url = parameters.endpoint +
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity;
 
@@ -50,7 +75,7 @@ async function dwapiCreate(parameters) {
 
 // UPDATE
 async function dwapiUpdate(parameters) {   
-    let url = parameters.endpoint + 
+    let url = parameters.endpoint +
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity + 
         "&filter=" + encodeURIComponent(JSON.stringify(parameters.filter));
@@ -73,7 +98,7 @@ async function dwapiUpdate(parameters) {
 
 // DELETE
 async function dwapiDelete(parameters) {   
-    let url = parameters.endpoint + 
+    let url = parameters.endpoint +
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity;
  
@@ -104,4 +129,78 @@ function prepareBody(values) {
         }
     } 
     return data;
+}
+
+// LOGIN
+async function dwapiLogin(parameters) {   
+    let url = parameters.endpoint +
+        "?project=" + parameters.project;
+
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: prepareBody({"email": parameters.email, "password": parameters.password})
+    });
+
+    return response.json()
+        .then(data => {             
+            return data; 
+        }); 
+}
+
+// LOGOUT
+async function dwapiLogout(parameters) {   
+    let url = parameters.endpoint +
+        "?project=" + parameters.project;
+
+    const response = await fetch(url, {
+        method: 'GET',  
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + parameters.token,
+        },      
+    });
+
+    return response.json()
+        .then(data => {             
+            return data; 
+        }); 
+}
+
+// REGISTER
+async function dwapiRegister(parameters) {   
+    let url = parameters.endpoint +
+        "?project=" + parameters.project;
+
+    const response = await fetch(url, {
+        method: 'POST',          
+        body: prepareBody(parameters.values)   
+    });
+
+    return response.json()
+        .then(data => {             
+            return data; 
+        }); 
+}
+
+// RESET PASSWORD
+async function dwapiResetPassword(parameters) {   
+
+    let url = parameters.endpoint +
+        "?project=" + parameters.project +
+        "&email=" + encodeURIComponent(parameters.email);
+
+    const response = await fetch(url, {
+        method: 'GET',  
+        headers: { 
+            'Content-Type': 'application/json'
+        },      
+    });
+
+    return response.json()
+        .then(data => {             
+            return data; 
+        }); 
 }
