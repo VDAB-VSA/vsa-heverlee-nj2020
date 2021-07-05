@@ -200,4 +200,8 @@ async function dwapiResetPassword(parameters) {
         .then(data => {             
             return data; 
         }); 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> e85b9e913d0aaee0277663e4f78cf5bbfd81c4a3
