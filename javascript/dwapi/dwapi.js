@@ -138,11 +138,8 @@ async function dwapiLogin(parameters) {
 
     const response = await fetch(url, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
         body: prepareBody({"email": parameters.email, "password": parameters.password})
-    });
+    }); 
 
     return response.json()
         .then(data => {             
@@ -184,7 +181,7 @@ async function dwapiRegister(parameters) {
             return data; 
         }); 
 }
- 
+
 // RESET PASSWORD
 async function dwapiResetPassword(parameters) {   
 
