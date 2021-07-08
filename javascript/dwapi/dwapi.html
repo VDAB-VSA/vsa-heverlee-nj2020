@@ -44,6 +44,24 @@
         });
         */
 
+       // -------------------------------------------------------------------*/
+        // CREATE WITHOUT TOKEN
+        /*
+        let values = {"voornaam": "XXX", "achternaam": "YYY"};
+        let create_parameters = {
+                "endpoint": dwapi_url + "/item",
+                "project": project,
+                "entity": "test",
+                "values": values,
+                "token_required": false
+            };
+        
+        let create_request = dwapiCreate(create_parameters);
+        create_request.then(data => {
+            console.log(data);
+        });
+        */
+
         
         // -------------------------------------------------------------------*/
         // UPDATE
@@ -113,6 +131,21 @@
             console.log(data);
         });
         */
+
+      // -------------------------------------------------------------------*/
+        // VALIDATE TOKEN
+        /*
+        let validate_parameters = {
+                "endpoint": dwapi_url + "/user/validate_token",
+                "project": project,                
+                "token": token
+            };
+        
+        let validate_request = dwapiValidateToken(validate_parameters);
+        validate_request.then(data => {
+            console.log(data);
+        });
+        */        
 
         // -------------------------------------------------------------------*/
         // REGISTER
