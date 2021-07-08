@@ -59,6 +59,10 @@ async function dwapiCreate(parameters) {
         "?project=" + parameters.project + 
         "&entity=" + parameters.entity;
 
+    if (typeof parameters.token_required !== "undefined") {
+        url = url + "&token_required=" + encodeURIComponent(JSON.stringify(parameters.token_required))
+    }
+
     const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -165,6 +169,26 @@ async function dwapiLogout(parameters) {
             return data; 
         }); 
 }
+
+// VALIDATE TOKEN
+async function dwapiValidateToken(parameters) {   
+    let url = parameters.endpoint +
+        "?project=" + parameters.project;
+
+    const response = await fetch(url, {
+        method: 'GET',  
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + parameters.token,
+        },      
+    });
+
+    return response.json()
+        .then(data => {             
+            return data; 
+        }); 
+}
+
 
 // REGISTER
 async function dwapiRegister(parameters) {   
